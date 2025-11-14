@@ -100,43 +100,53 @@ public class MainGUI extends JFrame {
     
     private void ejecutarSubmenu() {
         if (items.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No hay ítems registrados para ejecutar un submenú.", "Error", JOptionPane.ERROR_MESSAGE);
+            String mensaje = "<html><body style='width: 300px; padding: 10px; font-family: Segoe UI;'>"
+                           + "<p style='color: #E74C3C;'>No hay items registrados para ejecutar un submenu.</p>"
+                           + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        String mensajeInput = "<html><body style='width: 350px; padding: 10px; font-family: Segoe UI;'>"
+                            + "<h3 style='color: #9B59B6; margin: 0 0 10px 0;'>Ejecutar Submenu</h3>"
+                            + "<p style='margin: 5px 0;'>Ingrese el codigo del item (Juego) para ejecutar el submenu:</p>"
+                            + "<p style='color: #7F8C8D; font-size: 11px; margin: 5px 0 0 0;'>Nota: Solo los juegos tienen submenu disponible</p>"
+                            + "</body></html>";
         
         String codigo = JOptionPane.showInputDialog(
                 this, 
-                "Ingrese el código del ítem (Juego) para ejecutar el Submenú:",
-                "Seleccionar Ítem",
+                mensajeInput,
+                "Seleccionar Item",
                 JOptionPane.QUESTION_MESSAGE
         );
         
         if (codigo == null || codigo.trim().isEmpty()) {
-            
             return;
         }
 
-        
         RentItem itemSeleccionado = null;
         for (RentItem item : items) {
-            
             if (item.getCodigo().equalsIgnoreCase(codigo.trim())) {
                 itemSeleccionado = item;
                 break;
             }
         }
 
-        
         if (itemSeleccionado == null) {
-            JOptionPane.showMessageDialog(this, "No se encontró ningún ítem con el código: " + codigo, "Error de Búsqueda", JOptionPane.ERROR_MESSAGE);
+            String mensajeError = "<html><body style='width: 300px; padding: 10px; font-family: Segoe UI;'>"
+                                + "<p style='color: #E74C3C;'>No se encontro ningun item con el codigo:</p>"
+                                + "<p style='font-weight: bold; color: #2C3E50;'>" + codigo + "</p>"
+                                + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensajeError, "Error de Busqueda", JOptionPane.ERROR_MESSAGE);
         } else if (itemSeleccionado instanceof MenuActions) {
-            
             MenuActions menuActionItem = (MenuActions) itemSeleccionado;
             menuActionItem.submenu();
         } else {
-            
-            JOptionPane.showMessageDialog(this, "El ítem '" + itemSeleccionado.getNombre() + "' no tiene un submenú disponible.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            String mensajeAdvertencia = "<html><body style='width: 300px; padding: 10px; font-family: Segoe UI;'>"
+                                      + "<p style='color: #E67E22;'>El item <b>" + itemSeleccionado.getNombre() + "</b> no tiene un submenu disponible.</p>"
+                                      + "<p style='color: #7F8C8D; font-size: 11px; margin-top: 10px;'>Solo los juegos (Games) tienen submenu.</p>"
+                                      + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensajeAdvertencia, "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
 
