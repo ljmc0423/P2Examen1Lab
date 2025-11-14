@@ -48,7 +48,7 @@ public class AddFrame extends JFrame {
 
         JPanel cardPanel = new JPanel(new CardLayout());
 
-        // Panel para Movie
+        
         panelMovie = new JPanel(new GridLayout(6, 2, 5, 5));
         panelMovie.setBorder(BorderFactory.createTitledBorder("Datos de la Película"));
         codigoField = new JTextField();
@@ -59,9 +59,9 @@ public class AddFrame extends JFrame {
         imagenLabel.setBorder(BorderFactory.createEtchedBorder());
         cargarImagenBtn = new JButton("Cargar Imagen");
         fechaChooser = new JDateChooser();
-        fechaChooser.setDate(new Date()); // fecha por defecto: actual
+        fechaChooser.setDate(new Date()); 
 
-        panelMovie.add(new JLabel("Código:"));
+        panelMovie.add(new JLabel("Codigo:"));
         panelMovie.add(codigoField);
         panelMovie.add(new JLabel("Nombre:"));
         panelMovie.add(nombreField);
@@ -74,7 +74,7 @@ public class AddFrame extends JFrame {
         panelMovie.add(new JLabel("Fecha Estreno:"));
         panelMovie.add(fechaChooser);
 
-        // Panel para Game (reutiliza los mismos campos)
+     
         panelGame = new JPanel(new GridLayout(6, 2, 5, 5));
         panelGame.setBorder(BorderFactory.createTitledBorder("Datos del Videojuego"));
         
@@ -88,7 +88,7 @@ public class AddFrame extends JFrame {
         JDateChooser fechaChooserG = new JDateChooser();
         fechaChooserG.setDate(new Date());
 
-        panelGame.add(new JLabel("Código:"));
+        panelGame.add(new JLabel("Codigo:"));
         panelGame.add(codigoFieldG);
         panelGame.add(new JLabel("Nombre:"));
         panelGame.add(nombreFieldG);
@@ -98,20 +98,20 @@ public class AddFrame extends JFrame {
         panelGame.add(cantidadSpinnerG);
         panelGame.add(new JLabel("Imagen:"));
         panelGame.add(cargarImagenBtnG);
-        panelGame.add(new JLabel("Fecha Publicación:"));
+        panelGame.add(new JLabel("Fecha Publicacion:"));
         panelGame.add(fechaChooserG);
 
         cardPanel.add(panelMovie, "Movie");
         cardPanel.add(panelGame, "Game");
         add(cardPanel, BorderLayout.CENTER);
 
-        // Combobox para cambiar entre movie y game
+        
         tipoComboBox.addActionListener(e -> {
             CardLayout cl = (CardLayout) (cardPanel.getLayout());
             cl.show(cardPanel, (String) tipoComboBox.getSelectedItem());
         });
 
-        // Cargar imagen para Movie
+      
         cargarImagenBtn.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
@@ -120,7 +120,6 @@ public class AddFrame extends JFrame {
             if (resultado == JFileChooser.APPROVE_OPTION) {
                 File archivo = fileChooser.getSelectedFile();
                 ImageIcon imagen = new ImageIcon(archivo.getAbsolutePath());
-                // Redimensionar imagen si es muy grande
                 if (imagen.getIconWidth() > 200 || imagen.getIconHeight() > 200) {
                     Image img = imagen.getImage();
                     Image nuevaImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
@@ -132,7 +131,6 @@ public class AddFrame extends JFrame {
             }
         });
 
-        // Cargar imagen para Game
         cargarImagenBtnG.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
@@ -141,7 +139,6 @@ public class AddFrame extends JFrame {
             if (resultado == JFileChooser.APPROVE_OPTION) {
                 File archivo = fileChooser.getSelectedFile();
                 ImageIcon imagen = new ImageIcon(archivo.getAbsolutePath());
-                // Redimensionar imagen si es muy grande
                 if (imagen.getIconWidth() > 200 || imagen.getIconHeight() > 200) {
                     Image img = imagen.getImage();
                     Image nuevaImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
@@ -153,7 +150,7 @@ public class AddFrame extends JFrame {
             }
         });
 
-        // Panel de botones
+        
         JPanel botonPanel = new JPanel();
         guardarBtn = new JButton("Guardar");
         botonPanel.add(guardarBtn);
@@ -161,7 +158,6 @@ public class AddFrame extends JFrame {
         botonPanel.add(volverBtn);
         add(botonPanel, BorderLayout.SOUTH);
 
-        // Guardar item
         guardarBtn.addActionListener(e -> {
             String tipo = (String) tipoComboBox.getSelectedItem();
             
@@ -180,7 +176,6 @@ public class AddFrame extends JFrame {
     }
 
     private void guardarMovie() {
-        // Validar campos
         String codigo = codigoField.getText().trim();
         String nombre = nombreField.getText().trim();
         String precioStr = precioField.getText().trim();
@@ -191,39 +186,37 @@ public class AddFrame extends JFrame {
             return;
         }
 
-        // Validar código único
         if (codigoExiste(codigo)) {
-            JOptionPane.showMessageDialog(this, "El código ya existe. Por favor use otro código.",
+            JOptionPane.showMessageDialog(this, "El codigo ya existe. Por favor use otro codigo.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Validar precio
+        
         double precio;
         try {
             precio = Double.parseDouble(precioStr);
             if (precio < 0) {
-                JOptionPane.showMessageDialog(this, "El precio debe ser un número positivo.",
+                JOptionPane.showMessageDialog(this, "El precio debe ser un numero positivo.",
                         "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Por favor ingrese un precio válido.",
+            JOptionPane.showMessageDialog(this, "Por favor ingrese un precio valido.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Validar imagen
         if (imagenSeleccionadaMovie == null) {
             JOptionPane.showMessageDialog(this, "Por favor cargue una imagen.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Crear Movie
+        
         Movie movie = new Movie(codigo, nombre, precio, imagenSeleccionadaMovie);
         
-        // Establecer fecha de estreno
+        
         Date fecha = fechaChooser.getDate();
         if (fecha != null) {
             Calendar cal = Calendar.getInstance();
@@ -233,20 +226,20 @@ public class AddFrame extends JFrame {
                                  cal.get(Calendar.DAY_OF_MONTH));
         }
 
-        // Agregar a la lista
+     
         items.add(movie);
         
-        JOptionPane.showMessageDialog(this, "Película agregada exitosamente.",
+        JOptionPane.showMessageDialog(this, "Pelicula agregada exitosamente.",
                 "Éxito", JOptionPane.INFORMATION_MESSAGE);
         
-        // Limpiar campos
+        
         limpiarCamposMovie();
     }
 
     private void guardarGame(JTextField codigoFieldG, JTextField nombreFieldG, 
                              JTextField precioFieldG, JSpinner cantidadSpinnerG,
                              JDateChooser fechaChooserG, JLabel imagenLabelG) {
-        // Validar campos
+    
         String codigo = codigoFieldG.getText().trim();
         String nombre = nombreFieldG.getText().trim();
         String precioStr = precioFieldG.getText().trim();
@@ -257,39 +250,39 @@ public class AddFrame extends JFrame {
             return;
         }
 
-        // Validar código único
+        
         if (codigoExiste(codigo)) {
-            JOptionPane.showMessageDialog(this, "El código ya existe. Por favor use otro código.",
+            JOptionPane.showMessageDialog(this, "El codigo ya existe. Por favor use otro codigo.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Validar precio
+        
         double precio;
         try {
             precio = Double.parseDouble(precioStr);
             if (precio < 0) {
-                JOptionPane.showMessageDialog(this, "El precio debe ser un número positivo.",
+                JOptionPane.showMessageDialog(this, "El precio debe ser un numero positivo.",
                         "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Por favor ingrese un precio válido.",
+            JOptionPane.showMessageDialog(this, "Por favor ingrese un precio valido.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Validar imagen
+      
         if (imagenSeleccionadaGame == null) {
             JOptionPane.showMessageDialog(this, "Por favor cargue una imagen.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Crear Game
+       
         Game game = new Game(codigo, nombre, precio, imagenSeleccionadaGame);
         
-        // Establecer fecha de publicación
+        
         Date fecha = fechaChooserG.getDate();
         if (fecha != null) {
             Calendar cal = Calendar.getInstance();
@@ -299,13 +292,13 @@ public class AddFrame extends JFrame {
                                     cal.get(Calendar.DAY_OF_MONTH));
         }
 
-        // Agregar a la lista
+    
         items.add(game);
         
         JOptionPane.showMessageDialog(this, "Videojuego agregado exitosamente.",
                 "Éxito", JOptionPane.INFORMATION_MESSAGE);
         
-        // Limpiar campos
+       
         limpiarCamposGame(codigoFieldG, nombreFieldG, precioFieldG, cantidadSpinnerG,
                          fechaChooserG, imagenLabelG);
     }
