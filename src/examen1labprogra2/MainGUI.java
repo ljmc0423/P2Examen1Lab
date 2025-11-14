@@ -40,7 +40,7 @@ public class MainGUI extends JFrame {
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         headerPanel.add(titleLabel, BorderLayout.CENTER);
 
-        JLabel subtitleLabel = new JLabel("Gestión de Películas y Juegos", SwingConstants.CENTER);
+        JLabel subtitleLabel = new JLabel("Gestion de Peliculas y Juegos", SwingConstants.CENTER);
         subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         subtitleLabel.setForeground(new Color(236, 240, 241));
         headerPanel.add(subtitleLabel, BorderLayout.SOUTH);
@@ -61,7 +61,7 @@ public class MainGUI extends JFrame {
 
         JButton addItemBtn = createStyledButton(" Agregar Item", new Color(46, 204, 113));
         JButton rentItemBtn = createStyledButton(" Rentar", new Color(52, 152, 219));
-        JButton subMenuBtn = createStyledButton("️ Ejecutar Submenu", new Color(155, 89, 182));
+        JButton subMenuBtn = createStyledButton(" Ejecutar Submenu", new Color(155, 89, 182));
         JButton printAllBtn = createStyledButton(" Imprimir Todo", new Color(241, 196, 15));
 
         mainPanel.add(addItemBtn, gbc);

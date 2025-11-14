@@ -50,15 +50,21 @@ public class Game extends RentItem implements MenuActions {
     
     public void listEspecificaciones() {
         if (especificaciones.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay especificaciones registradas para este juego.", "Especificaciones", JOptionPane.INFORMATION_MESSAGE);
+            String mensajeVacio = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                                + "<p style='color: #7F8C8D;'>No hay especificaciones registradas para este juego.</p>"
+                                + "</body></html>";
+            JOptionPane.showMessageDialog(null, mensajeVacio, "Especificaciones", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Especificaciones de ").append(this.getNombre()).append(":\n\n");
+        sb.append("<html><body style='width: 350px; padding: 10px; font-family: Segoe UI;'>");
+        sb.append("<h3 style='color: #9B59B6;'>Especificaciones de ").append(this.getNombre()).append("</h3>");
+        sb.append("<ul style='padding-left: 20px;'>");
         for (int i = 0; i < especificaciones.size(); i++) {
-            sb.append(i + 1).append(". ").append(especificaciones.get(i)).append("\n");
+            sb.append("<li style='margin: 5px 0;'>").append(especificaciones.get(i)).append("</li>");
         }
+        sb.append("</ul></body></html>");
         
         JOptionPane.showMessageDialog(null, sb.toString(), "Ver Especificaciones", JOptionPane.PLAIN_MESSAGE, this.getImagen());
     }
@@ -81,15 +87,15 @@ public class Game extends RentItem implements MenuActions {
     public void submenu() {
         try {
             String[] opciones = {
-                "Actualizar fecha de publicación",
-                "Agregar especificación",
+                "Actualizar fecha de publicacion",
+                "Agregar especificacion",
                 "Ver especificaciones",
-                "Volver al menú principal"
+                "Volver al menu principal"
             };
 
-            String mensaje = "<html><body>"
-                           + "<h2>Menú: **" + this.getNombre() + "**</h2>"
-                           + "Seleccione una opción:"
+            String mensaje = "<html><body style='width: 300px; padding: 10px;'>"
+                           + "<h2 style='color: #9B59B6; font-family: Segoe UI;'>Menu: " + this.getNombre() + "</h2>"
+                           + "<p style='font-family: Segoe UI; font-size: 12px;'>Seleccione una opcion:</p>"
                            + "</body></html>";
             
             int seleccion = JOptionPane.showOptionDialog(
@@ -106,9 +112,9 @@ public class Game extends RentItem implements MenuActions {
             ejecutarOpcion(seleccion + 1); 
 
         } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "Error al mostrar el menú de la GUI.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al mostrar el menu de la GUI.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrió un error: " + e.getMessage(), "Error Inesperado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.getMessage(), "Error Inesperado", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -120,18 +126,28 @@ public class Game extends RentItem implements MenuActions {
                 break;
                 
             case 2:
+                String mensajeInput = "<html><body style='width: 300px; padding: 10px; font-family: Segoe UI;'>"
+                                    + "<p>Ingrese la nueva especificacion:</p>"
+                                    + "<p style='color: #7F8C8D; font-size: 10px;'>(ej: 'Necesita 10GB de espacio')</p>"
+                                    + "</body></html>";
                 String nuevaEspec = JOptionPane.showInputDialog(
                     null, 
-                    "Ingrese la nueva especificación (ej: 'Necesita 10GB de espacio'):", 
-                    "Agregar Especificación", 
+                    mensajeInput, 
+                    "Agregar Especificacion", 
                     JOptionPane.QUESTION_MESSAGE
                 );
                 
                 if (nuevaEspec != null && !nuevaEspec.trim().isEmpty()) {
                     agregarEspecificacion(nuevaEspec.trim());
-                    JOptionPane.showMessageDialog(null, "Especificación agregada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    String mensajeExito = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                                        + "<p style='color: #27AE60;'>Especificacion agregada con exito.</p>"
+                                        + "</body></html>";
+                    JOptionPane.showMessageDialog(null, mensajeExito, "Exito", JOptionPane.INFORMATION_MESSAGE);
                 } else if (nuevaEspec != null) {
-                     JOptionPane.showMessageDialog(null, "No se agregó la especificación. El campo estaba vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    String mensajeVacio = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                                        + "<p style='color: #E67E22;'>No se agrego la especificacion. El campo estaba vacio.</p>"
+                                        + "</body></html>";
+                     JOptionPane.showMessageDialog(null, mensajeVacio, "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }
                 break;
                 
@@ -140,71 +156,84 @@ public class Game extends RentItem implements MenuActions {
                 break;
                 
             case 4:
-                JOptionPane.showMessageDialog(null, "Volviendo al menú principal.", "Volver", JOptionPane.INFORMATION_MESSAGE);
+                String mensajeVolver = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                                     + "<p>Volviendo al menu principal.</p>"
+                                     + "</body></html>";
+                JOptionPane.showMessageDialog(null, mensajeVolver, "Volver", JOptionPane.INFORMATION_MESSAGE);
                 break;
                 
             default:
-                if (opcion == 0) { // Corresponde al índice -1 de showOptionDialog + 1
-                     JOptionPane.showMessageDialog(null, "Operación cancelada.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
+                if (opcion == 0) {
+                    String mensajeCancelado = "<html><body style='width: 200px; padding: 10px; font-family: Segoe UI;'>"
+                                            + "<p>Operacion cancelada.</p>"
+                                            + "</body></html>";
+                     JOptionPane.showMessageDialog(null, mensajeCancelado, "Cancelado", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                     JOptionPane.showMessageDialog(null, "Opción no válida seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
+                    String mensajeError = "<html><body style='width: 200px; padding: 10px; font-family: Segoe UI;'>"
+                                        + "<p style='color: #E74C3C;'>Opcion no valida seleccionada.</p>"
+                                        + "</body></html>";
+                     JOptionPane.showMessageDialog(null, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
         }
     }
 
     private void actualizarFechaPublicacion() {
-    // 1. Crear el componente JDateChooser
     JDateChooser dateChooser = new JDateChooser();
-    dateChooser.setCalendar(this.fechaPublicacion); // Establecer la fecha actual del juego
+    dateChooser.setCalendar(this.fechaPublicacion);
 
-    // 2. Crear el mensaje y el arreglo de componentes
-    String mensaje = "Seleccione la nueva fecha de publicación:";
+    String mensaje = "<html><body style='width: 300px; padding: 10px; font-family: Segoe UI;'>"
+                   + "<p style='font-size: 12px;'>Seleccione la nueva fecha de publicacion:</p>"
+                   + "</body></html>";
     
-    // El arreglo Object[] permite mezclar texto y componentes Swing
     Object[] params = {mensaje, dateChooser};
 
     try {
-        // 3. Mostrar el diálogo de confirmación
-        // Usamos showConfirmDialog para obtener una respuesta OK/Cancel
         int result = JOptionPane.showConfirmDialog(
             null, 
             params, 
-            "Actualizar Fecha de Publicación", 
+            "Actualizar Fecha de Publicacion", 
             JOptionPane.OK_CANCEL_OPTION, 
             JOptionPane.PLAIN_MESSAGE
         );
 
-        // 4. Procesar la respuesta
         if (result == JOptionPane.OK_OPTION) {
             Date nuevaFecha = dateChooser.getDate();
             
             if (nuevaFecha != null) {
-                // Convertir la Date seleccionada a Calendar y actualizar el atributo
                 Calendar nuevoCalendar = Calendar.getInstance();
                 nuevoCalendar.setTime(nuevaFecha);
                 
-                // Actualizar la fecha de publicación del Game
                 this.setFechaPublicacion(nuevoCalendar);
 
-                // Opcional: Mostrar la fecha formateada para confirmación
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String fechaFormateada = sdf.format(nuevaFecha);
                 
+                String mensajeExito = "<html><body style='width: 300px; padding: 10px; font-family: Segoe UI;'>"
+                                    + "<p style='color: #27AE60;'>Fecha de publicacion actualizada a:</p>"
+                                    + "<p style='font-weight: bold; color: #2C3E50;'>" + fechaFormateada + "</p>"
+                                    + "</body></html>";
+                
                 JOptionPane.showMessageDialog(
                     null, 
-                    "Fecha de publicación actualizada a: " + fechaFormateada, 
-                    "Éxito", 
+                    mensajeExito, 
+                    "Exito", 
                     JOptionPane.INFORMATION_MESSAGE
                 );
             } else {
-                 JOptionPane.showMessageDialog(null, "No se seleccionó ninguna fecha.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                String mensajeAdvertencia = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                                          + "<p style='color: #E67E22;'>No se selecciono ninguna fecha.</p>"
+                                          + "</body></html>";
+                 JOptionPane.showMessageDialog(null, mensajeAdvertencia, "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
         }
-        // Si el resultado es CANCEL_OPTION o se cierra, no se hace nada.
 
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Ocurrió un error al actualizar la fecha: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        String mensajeError = "<html><body style='width: 300px; padding: 10px; font-family: Segoe UI;'>"
+                            + "<p style='color: #E74C3C;'>Ocurrio un error al actualizar la fecha:</p>"
+                            + "<p style='font-size: 10px;'>" + e.getMessage() + "</p>"
+                            + "</body></html>";
+        JOptionPane.showMessageDialog(null, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
     }
     }
 }
