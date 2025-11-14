@@ -8,7 +8,7 @@ package examen1labprogra2;
  *
  * @author ljmc2
  */
-public class Examen1LabProgra2 {
+public class MainGUI {
 
     /**
      * @param args the command line arguments
