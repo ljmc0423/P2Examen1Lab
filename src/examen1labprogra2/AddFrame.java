@@ -383,7 +383,6 @@ public class AddFrame extends JFrame {
         imagenLabelG.setText("Imagen no cargada");
         imagenSeleccionadaGame = null;
     }
-<<<<<<< HEAD
 
     private JButton createStyledButton(String text, Color backgroundColor) {
         JButton button = new JButton(text);
@@ -429,6 +428,3 @@ public class AddFrame extends JFrame {
         return button;
     }
 }
-=======
-}
->>>>>>> aecf193cc9492b34470e312718b2f3daf0c9b6d5

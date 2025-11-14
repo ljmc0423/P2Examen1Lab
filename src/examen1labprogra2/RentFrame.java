@@ -18,39 +18,15 @@ public class RentFrame extends JFrame {
     private JButton buscarBtn, volverBtn;
     private JPanel resultPanel;
     private ArrayList<RentItem> items;
-    private static ArrayList<RentItem> itemsEstaticos = new ArrayList<>();
 
     public RentFrame() {
-        // Intentar obtener la lista de items estáticos o buscar en MainGUI abierto
-        if (!itemsEstaticos.isEmpty()) {
-            this.items = new ArrayList<>(itemsEstaticos);
-        } else {
-            // Buscar MainGUI en las ventanas abiertas
-            this.items = obtenerItemsDeMainGUI();
-        }
-        
-        inicializarGUI();
-    }
-    
-    private ArrayList<RentItem> obtenerItemsDeMainGUI() {
-        // Buscar MainGUI en las ventanas abiertas
-        for (Window window : Window.getWindows()) {
-            if (window instanceof MainGUI) {
-                MainGUI mainGUI = (MainGUI) window;
-                return mainGUI.getItems();
-            }
-        }
-        return new ArrayList<>();
+        this(new ArrayList<>());
     }
     
     public RentFrame(ArrayList<RentItem> items) {
         this.items = items != null ? items : new ArrayList<>();
         
         inicializarGUI();
-    }
-    
-    public static void setItemsEstaticos(ArrayList<RentItem> items) {
-        itemsEstaticos = items != null ? items : new ArrayList<>();
     }
     
     private void inicializarGUI() {

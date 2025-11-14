@@ -84,9 +84,9 @@ public class MainGUI extends JFrame {
 
         rentItemBtn.addActionListener(e -> {
             // Asumo que RentFrame gestiona la renta
-            RentFrame frame = new RentFrame();
+            RentFrame frame = new RentFrame(items);
             frame.setVisible(true);
-            this.dispose();
+            this.setVisible(false);
         });
 
         // --- IMPLEMENTACIÓN DEL SUBMENÚ ---
@@ -96,9 +96,9 @@ public class MainGUI extends JFrame {
 
         printAllBtn.addActionListener(e -> {
             // Asumo que CatalogFrame muestra la lista de items
-            CatalogFrame frame = new CatalogFrame();
+            CatalogFrame frame = new CatalogFrame(items);
             frame.setVisible(true);
-            this.dispose();
+            this.setVisible(false);
         });
     }
     

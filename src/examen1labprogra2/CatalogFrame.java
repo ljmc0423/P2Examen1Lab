@@ -6,7 +6,6 @@ package examen1labprogra2;
 
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -19,39 +18,15 @@ public class CatalogFrame extends JFrame {
     private JPanel catalogPanel;
     private JScrollPane scrollPane;
     private ArrayList<RentItem> items;
-    private static ArrayList<RentItem> itemsEstaticos = new ArrayList<>();
 
     public CatalogFrame() {
-        // Intentar obtener la lista de items estáticos o buscar en MainGUI abierto
-        if (!itemsEstaticos.isEmpty()) {
-            this.items = new ArrayList<>(itemsEstaticos);
-        } else {
-            // Buscar MainGUI en las ventanas abiertas
-            this.items = obtenerItemsDeMainGUI();
-        }
-        
-        inicializarGUI();
+        this(new ArrayList<>());
     }
     
     public CatalogFrame(ArrayList<RentItem> items) {
         this.items = items != null ? items : new ArrayList<>();
         
         inicializarGUI();
-    }
-    
-    public static void setItemsEstaticos(ArrayList<RentItem> items) {
-        itemsEstaticos = items != null ? items : new ArrayList<>();
-    }
-    
-    private ArrayList<RentItem> obtenerItemsDeMainGUI() {
-        // Buscar MainGUI en las ventanas abiertas
-        for (Window window : Window.getWindows()) {
-            if (window instanceof MainGUI) {
-                MainGUI mainGUI = (MainGUI) window;
-                return mainGUI.getItems();
-            }
-        }
-        return new ArrayList<>();
     }
     
     private void inicializarGUI() {
