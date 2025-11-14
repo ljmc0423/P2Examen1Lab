@@ -307,12 +307,5 @@ public class RentFrame extends JFrame {
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            RentFrame frame = new RentFrame();
-            frame.setVisible(true);
-        });
-    }
+    
 }

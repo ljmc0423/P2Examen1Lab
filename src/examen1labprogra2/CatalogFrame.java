@@ -241,10 +241,4 @@ public class CatalogFrame extends JFrame {
         return tarjeta;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            CatalogFrame frame = new CatalogFrame();
-            frame.setVisible(true);
-        });
-    }
 }
