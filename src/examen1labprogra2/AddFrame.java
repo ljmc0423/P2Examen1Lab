@@ -14,7 +14,6 @@ import java.util.Date;
  */
 public class AddFrame extends JFrame {
 
-    // Componentes comunes
     private JComboBox<String> tipoComboBox;
     private JTextField codigoField, nombreField, precioField;
     private JSpinner cantidadSpinner;
@@ -24,23 +23,20 @@ public class AddFrame extends JFrame {
     private JPanel panelMovie, panelGame;
 
     public AddFrame() {
-        setTitle("Agregar Ítem");
+        setTitle("Agregar Item");
         setSize(500, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Panel superior: selección de tipo
         JPanel tipoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         tipoPanel.add(new JLabel("Tipo:"));
         tipoComboBox = new JComboBox<>(new String[]{"Movie", "Game"});
         tipoPanel.add(tipoComboBox);
         add(tipoPanel, BorderLayout.NORTH);
 
-        // Panel central: CardLayout para mostrar Movie o Game
         JPanel cardPanel = new JPanel(new CardLayout());
 
-        // Panel Movie
         panelMovie = new JPanel(new GridLayout(6, 2, 5, 5));
         panelMovie.setBorder(BorderFactory.createTitledBorder("Datos de la Película"));
         codigoField = new JTextField();
@@ -65,7 +61,6 @@ public class AddFrame extends JFrame {
         panelMovie.add(new JLabel("Fecha Estreno:"));
         panelMovie.add(fechaChooser);
 
-        // Panel Game
         panelGame = new JPanel(new GridLayout(6, 2, 5, 5));
         panelGame.setBorder(BorderFactory.createTitledBorder("Datos del Videojuego"));
         JTextField codigoFieldG = new JTextField();
@@ -90,18 +85,17 @@ public class AddFrame extends JFrame {
         panelGame.add(new JLabel("Fecha Publicación:"));
         panelGame.add(fechaChooserG);
 
-        // Agregar panels al card layout
         cardPanel.add(panelMovie, "Movie");
         cardPanel.add(panelGame, "Game");
         add(cardPanel, BorderLayout.CENTER);
 
-        // Listener para cambiar entre Movie y Game
+        //combobox para cambiar entre movie y game
         tipoComboBox.addActionListener(e -> {
             CardLayout cl = (CardLayout) (cardPanel.getLayout());
             cl.show(cardPanel, (String) tipoComboBox.getSelectedItem());
         });
 
-        // Panel inferior: botón guardar (sin lógica)
+        //implementar guardar
         JPanel botonPanel = new JPanel();
         JButton guardarBtn = new JButton("Guardar");
         botonPanel.add(guardarBtn);

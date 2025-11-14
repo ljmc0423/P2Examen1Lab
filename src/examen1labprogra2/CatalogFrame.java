@@ -11,5 +11,7 @@ import java.awt.*;
  * @author ljmc2
  */
 public class CatalogFrame extends JFrame{
-    
+    /*
+    - una table que imprima
+    */
 }
