@@ -252,7 +252,6 @@ public class RentFrame extends JFrame {
         resultPanel.add(cardPanel);
         resultPanel.add(Box.createVerticalStrut(20));
 
-        // Acción del botón calcular
         calcularBtn.addActionListener(ev -> {
             try {
                 String diasStr = diasField.getText().trim();
@@ -272,7 +271,6 @@ public class RentFrame extends JFrame {
                 double montoTotal = item.pagoRenta(dias);
                 resultadoLabel.setText("Monto Total: " + String.format("%.2f", montoTotal) + " Lps");
                 
-                // Mostrar también en un diálogo
                 JOptionPane.showMessageDialog(this, 
                         "Monto Total de Renta: " + String.format("%.2f", montoTotal) + " Lps\n" +
                         "Días: " + dias,

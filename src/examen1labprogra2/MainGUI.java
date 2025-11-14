@@ -76,42 +76,35 @@ public class MainGUI extends JFrame {
 
         
         addItemBtn.addActionListener(e -> {
-            // Asumo que AddFrame gestiona la adición de items
             AddFrame frame = new AddFrame(items, this);
             frame.setVisible(true);
             this.setVisible(false);
         });
 
         rentItemBtn.addActionListener(e -> {
-            // Asumo que RentFrame gestiona la renta
             RentFrame frame = new RentFrame(items);
             frame.setVisible(true);
             this.setVisible(false);
         });
 
-        // --- IMPLEMENTACIÓN DEL SUBMENÚ ---
         subMenuBtn.addActionListener(e -> {
             ejecutarSubmenu();
         });
 
         printAllBtn.addActionListener(e -> {
-            // Asumo que CatalogFrame muestra la lista de items
             CatalogFrame frame = new CatalogFrame(items);
             frame.setVisible(true);
             this.setVisible(false);
         });
     }
     
-    /**
-     * Lógica para seleccionar un RentItem por código y ejecutar su submenu.
-     */
     private void ejecutarSubmenu() {
         if (items.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay ítems registrados para ejecutar un submenú.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // 1. Solicitar el código del ítem
+        
         String codigo = JOptionPane.showInputDialog(
                 this, 
                 "Ingrese el código del ítem (Juego) para ejecutar el Submenú:",
@@ -120,29 +113,29 @@ public class MainGUI extends JFrame {
         );
         
         if (codigo == null || codigo.trim().isEmpty()) {
-            // Cancelado o vacío
+            
             return;
         }
 
-        // 2. Buscar el ítem en la lista
+        
         RentItem itemSeleccionado = null;
         for (RentItem item : items) {
-            // Asumo que getCodigo() existe en RentItem
+            
             if (item.getCodigo().equalsIgnoreCase(codigo.trim())) {
                 itemSeleccionado = item;
                 break;
             }
         }
 
-        // 3. Ejecutar el submenú si el ítem es válido y soporta acciones de menú
+        
         if (itemSeleccionado == null) {
             JOptionPane.showMessageDialog(this, "No se encontró ningún ítem con el código: " + codigo, "Error de Búsqueda", JOptionPane.ERROR_MESSAGE);
         } else if (itemSeleccionado instanceof MenuActions) {
-            // El ítem implementa MenuActions (como la clase Game)
+            
             MenuActions menuActionItem = (MenuActions) itemSeleccionado;
             menuActionItem.submenu();
         } else {
-            // El ítem fue encontrado, pero no tiene un submenú implementado
+            
             JOptionPane.showMessageDialog(this, "El ítem '" + itemSeleccionado.getNombre() + "' no tiene un submenú disponible.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
@@ -176,20 +169,6 @@ public class MainGUI extends JFrame {
 
     public static void main(String[] args) {
         ArrayList<RentItem> initialItems = new ArrayList<>();
-        // Nota: Debes asegurarte de que RentItem y MenuActions están definidos y que 
-        // tienes acceso a una imagen para este ejemplo.
-        // Simulamos un Game para la prueba
-        try {
-            ImageIcon icon = new ImageIcon(MainGUI.class.getResource("/resources/default_icon.png")); // Ajusta la ruta a un icono real
-            Game sampleGame = new Game("G001", "The Last of Us", 50.0, icon);
-            sampleGame.setFechaPublicacion(2013, 6, 14); // Año, Mes (1-12), Día
-            sampleGame.agregarEspecificacion("Solo para mayores de 18");
-            sampleGame.agregarEspecificacion("Requiere 50GB de disco duro");
-            initialItems.add(sampleGame);
-        } catch (Exception e) {
-             System.err.println("Advertencia: No se pudo cargar el ícono de ejemplo. " + e.getMessage());
-        }
-        
         SwingUtilities.invokeLater(() -> {
             MainGUI gui = new MainGUI(initialItems);
             gui.setVisible(true);
