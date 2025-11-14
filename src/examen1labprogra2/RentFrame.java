@@ -307,5 +307,5 @@ public class RentFrame extends JFrame {
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-    
+    }
 }
