@@ -52,27 +52,19 @@ public class MainGUI extends JFrame {
         });
 
         rentItemBtn.addActionListener(e -> {
-            JFrame rentFrame = new JFrame("Rentar Ítem");
-            rentFrame.setSize(300, 200);
-            rentFrame.setLocationRelativeTo(null);
-            rentFrame.add(new JLabel("Aquí irá la lógica de renta", SwingConstants.CENTER));
-            rentFrame.setVisible(true);
+            RentFrame frame = new RentFrame();
+            frame.setVisible(true);
+            this.dispose();
         });
 
         subMenuBtn.addActionListener(e -> {
-            JFrame subMenuFrame = new JFrame("Submenú");
-            subMenuFrame.setSize(300, 200);
-            subMenuFrame.setLocationRelativeTo(null);
-            subMenuFrame.add(new JLabel("Aquí se ejecutará el submenú", SwingConstants.CENTER));
-            subMenuFrame.setVisible(true);
+            
         });
 
         printAllBtn.addActionListener(e -> {
-            JFrame printFrame = new JFrame("Todos los Ítems");
-            printFrame.setSize(400, 300);
-            printFrame.setLocationRelativeTo(null);
-            printFrame.add(new JLabel("Aquí se listarán todos los ítems", SwingConstants.CENTER));
-            printFrame.setVisible(true);
+            CatalogFrame frame = new CatalogFrame();
+            frame.setVisible(true);
+            this.dispose();
         });
     }
 
