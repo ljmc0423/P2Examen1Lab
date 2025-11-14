@@ -4,10 +4,12 @@
  */
 package examen1labprogra2;
 
+import javax.swing.*;
+import java.awt.*;
 /**
  *
  * @author ljmc2
  */
-public class CatalogFrame {
+public class CatalogFrame extends JFrame{
     
 }
