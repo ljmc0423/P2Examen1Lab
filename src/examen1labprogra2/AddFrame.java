@@ -18,7 +18,7 @@ public class AddFrame extends JFrame {
     private JTextField codigoField, nombreField, precioField;
     private JSpinner cantidadSpinner;
     private JLabel imagenLabel;
-    private JButton cargarImagenBtn;
+    private JButton cargarImagenBtn, volverBtn;
     private JDateChooser fechaChooser;
     private JPanel panelMovie, panelGame;
 
@@ -99,6 +99,15 @@ public class AddFrame extends JFrame {
         JPanel botonPanel = new JPanel();
         JButton guardarBtn = new JButton("Guardar");
         botonPanel.add(guardarBtn);
+        volverBtn = new JButton("Volver al Menu");
+        botonPanel.add(volverBtn);
         add(botonPanel, BorderLayout.SOUTH);
+        
+        volverBtn.addActionListener(e->{
+            MainGUI gui = new MainGUI();
+            gui.setVisible(true);
+            this.dispose();
+        });
+        
     }
 }
