@@ -51,7 +51,7 @@ public class Movie extends RentItem {
     
     
     public String toString() {
-        return super.toString() + "Estado: " + getEstado() + " – Movie";
+        return super.toString() + "Estado: " + getEstado() + " Movie";
     }
     
    

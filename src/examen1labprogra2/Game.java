@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane; 
-import java.awt.HeadlessException; 
+import java.awt.HeadlessException;
+import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -151,28 +154,57 @@ public class Game extends RentItem implements MenuActions {
     }
 
     private void actualizarFechaPublicacion() {
-        try {
-            String inputYear = JOptionPane.showInputDialog(null, "Ingrese el AÑO de publicación:", "Actualizar Fecha", JOptionPane.QUESTION_MESSAGE);
-            if (inputYear == null) return;
-            int year = Integer.parseInt(inputYear.trim());
+    // 1. Crear el componente JDateChooser
+    JDateChooser dateChooser = new JDateChooser();
+    dateChooser.setCalendar(this.fechaPublicacion); // Establecer la fecha actual del juego
 
-            String inputMes = JOptionPane.showInputDialog(null, "Ingrese el MES de publicación (1-12):", "Actualizar Fecha", JOptionPane.QUESTION_MESSAGE);
-            if (inputMes == null) return;
-            int mes = Integer.parseInt(inputMes.trim());
+    // 2. Crear el mensaje y el arreglo de componentes
+    String mensaje = "Seleccione la nueva fecha de publicación:";
+    
+    // El arreglo Object[] permite mezclar texto y componentes Swing
+    Object[] params = {mensaje, dateChooser};
 
-            String inputDia = JOptionPane.showInputDialog(null, "Ingrese el DÍA de publicación:", "Actualizar Fecha", JOptionPane.QUESTION_MESSAGE);
-            if (inputDia == null) return;
-            int dia = Integer.parseInt(inputDia.trim());
+    try {
+        // 3. Mostrar el diálogo de confirmación
+        // Usamos showConfirmDialog para obtener una respuesta OK/Cancel
+        int result = JOptionPane.showConfirmDialog(
+            null, 
+            params, 
+            "Actualizar Fecha de Publicación", 
+            JOptionPane.OK_CANCEL_OPTION, 
+            JOptionPane.PLAIN_MESSAGE
+        );
 
-            setFechaPublicacion(year, mes, dia);
-            JOptionPane.showMessageDialog(null, "Fecha de publicación actualizada a: " + dia + "/" + mes + "/" + year, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        // 4. Procesar la respuesta
+        if (result == JOptionPane.OK_OPTION) {
+            Date nuevaFecha = dateChooser.getDate();
+            
+            if (nuevaFecha != null) {
+                // Convertir la Date seleccionada a Calendar y actualizar el atributo
+                Calendar nuevoCalendar = Calendar.getInstance();
+                nuevoCalendar.setTime(nuevaFecha);
+                
+                // Actualizar la fecha de publicación del Game
+                this.setFechaPublicacion(nuevoCalendar);
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error: El año, mes o día deben ser números enteros válidos.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
-        } catch (IllegalArgumentException e) {
-             JOptionPane.showMessageDialog(null, "Error: Fecha ingresada no es válida. Verifique el mes (1-12) y el día.", "Error de Fecha", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Ocurrió un error al actualizar la fecha: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                // Opcional: Mostrar la fecha formateada para confirmación
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String fechaFormateada = sdf.format(nuevaFecha);
+                
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Fecha de publicación actualizada a: " + fechaFormateada, 
+                    "Éxito", 
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+            } else {
+                 JOptionPane.showMessageDialog(null, "No se seleccionó ninguna fecha.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
         }
+        // Si el resultado es CANCEL_OPTION o se cierra, no se hace nada.
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Ocurrió un error al actualizar la fecha: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }
 }
