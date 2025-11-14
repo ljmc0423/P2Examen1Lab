@@ -86,6 +86,13 @@ public class Game extends RentItem implements MenuActions {
   
     public void submenu() {
         try {
+            javax.swing.UIManager.put("OptionPane.background", new java.awt.Color(236, 240, 241));
+            javax.swing.UIManager.put("Panel.background", new java.awt.Color(236, 240, 241));
+            javax.swing.UIManager.put("Button.background", new java.awt.Color(155, 89, 182));
+            javax.swing.UIManager.put("Button.foreground", java.awt.Color.WHITE);
+            javax.swing.UIManager.put("Button.font", new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
+            javax.swing.UIManager.put("Button.focus", new java.awt.Color(142, 68, 173));
+            
             String[] opciones = {
                 "Actualizar fecha de publicacion",
                 "Agregar especificacion",
@@ -93,9 +100,9 @@ public class Game extends RentItem implements MenuActions {
                 "Volver al menu principal"
             };
 
-            String mensaje = "<html><body style='width: 300px; padding: 10px;'>"
-                           + "<h2 style='color: #9B59B6; font-family: Segoe UI;'>Menu: " + this.getNombre() + "</h2>"
-                           + "<p style='font-family: Segoe UI; font-size: 12px;'>Seleccione una opcion:</p>"
+            String mensaje = "<html><body style='width: 350px; padding: 15px; background-color: #ECF0F1;'>"
+                           + "<h2 style='color: #9B59B6; font-family: Segoe UI; margin: 0 0 15px 0;'>Menu: " + this.getNombre() + "</h2>"
+                           + "<p style='font-family: Segoe UI; font-size: 13px; color: #2C3E50; margin: 0;'>Seleccione una opcion:</p>"
                            + "</body></html>";
             
             int seleccion = JOptionPane.showOptionDialog(
@@ -108,6 +115,13 @@ public class Game extends RentItem implements MenuActions {
                 opciones,                       
                 opciones[3]                     
             );
+
+            javax.swing.UIManager.put("OptionPane.background", null);
+            javax.swing.UIManager.put("Panel.background", null);
+            javax.swing.UIManager.put("Button.background", null);
+            javax.swing.UIManager.put("Button.foreground", null);
+            javax.swing.UIManager.put("Button.font", null);
+            javax.swing.UIManager.put("Button.focus", null);
 
             ejecutarOpcion(seleccion + 1); 
 
