@@ -73,7 +73,7 @@ public class AddFrame extends JFrame {
         cantidadSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
         imagenLabel = new JLabel("Imagen no cargada", SwingConstants.CENTER);
         imagenLabel.setBorder(BorderFactory.createEtchedBorder());
-        cargarImagenBtn = new JButton("Cargar Imagen");
+        cargarImagenBtn = createSmallStyledButton("Cargar Imagen", new Color(52, 152, 219));
         fechaChooser = new JDateChooser();
         fechaChooser.setDate(new Date()); 
 
@@ -100,7 +100,7 @@ public class AddFrame extends JFrame {
         JSpinner cantidadSpinnerG = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
         JLabel imagenLabelG = new JLabel("Imagen no cargada", SwingConstants.CENTER);
         imagenLabelG.setBorder(BorderFactory.createEtchedBorder());
-        JButton cargarImagenBtnG = new JButton("Cargar Imagen");
+        JButton cargarImagenBtnG = createSmallStyledButton("Cargar Imagen", new Color(52, 152, 219));
         JDateChooser fechaChooserG = new JDateChooser();
         fechaChooserG.setDate(new Date());
 
@@ -168,10 +168,18 @@ public class AddFrame extends JFrame {
 
         
         JPanel botonPanel = new JPanel();
-        guardarBtn = new JButton("Guardar");
+        botonPanel.setBackground(new Color(236, 240, 241));
+        botonPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
+        botonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        
+        guardarBtn = createStyledButton("Guardar", new Color(46, 204, 113));
+        guardarBtn.setPreferredSize(new Dimension(150, 45));
         botonPanel.add(guardarBtn);
-        volverBtn = new JButton("Volver al Menu");
+        
+        volverBtn = createStyledButton("Volver al Menu", new Color(52, 73, 94));
+        volverBtn.setPreferredSize(new Dimension(150, 45));
         botonPanel.add(volverBtn);
+        
         add(botonPanel, BorderLayout.SOUTH);
 
         guardarBtn.addActionListener(e -> {
@@ -374,5 +382,49 @@ public class AddFrame extends JFrame {
         imagenLabelG.setIcon(null);
         imagenLabelG.setText("Imagen no cargada");
         imagenSeleccionadaGame = null;
+    }
+
+    private JButton createStyledButton(String text, Color backgroundColor) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(backgroundColor.darker());
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(backgroundColor);
+            }
+        });
+        
+        return button;
+    }
+
+    private JButton createSmallStyledButton(String text, Color backgroundColor) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(backgroundColor.darker());
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(backgroundColor);
+            }
+        });
+        
+        return button;
     }
 }
