@@ -38,15 +38,6 @@ public abstract class RentItem {
         return precioBase;
     }
     
-    /*
-    public int getCopiasDisponibles() {
-        return copiasDisponibles;
-    }
-
-    public void setCopiasDisponibles(int copiasDisponibles) {
-        this.copiasDisponibles = copiasDisponibles;
-    }
-    */
     public ImageIcon getImagen() {
         return imagen;
     }
