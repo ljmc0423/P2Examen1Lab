@@ -6,7 +6,6 @@ package examen1labprogra2;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Scanner;
 import javax.swing.ImageIcon;
 
 /**
@@ -52,7 +51,7 @@ public class Game extends RentItem implements MenuActions {
         if (indice >= especificaciones.size()) {
             return;
         }
-        System.out.println((indice + 1) + ". " + especificaciones.get(indice));
+        
         listEspecificaciones(indice + 1);
     }
     
@@ -71,53 +70,32 @@ public class Game extends RentItem implements MenuActions {
     
     @Override
     public void submenu() {
-        System.out.println("\n=== MENÚ DE OPCIONES DEL JUEGO ===");
-        System.out.println("1. Actualizar fecha de publicación");
-        System.out.println("2. Agregar especificación");
-        System.out.println("3. Ver especificaciones");
-        System.out.println("4. Salir");
-        System.out.print("Seleccione una opción: ");
+        
     }
     
     @Override
     public void ejecutarOpcion(int opcion) {
-        Scanner scanner = new Scanner(System.in);
         
         switch (opcion) {
             case 1:
-                System.out.print("Ingrese el año: ");
-                int year = scanner.nextInt();
-                System.out.print("Ingrese el mes (1-12): ");
-                int mes = scanner.nextInt() - 1; // Calendar usa meses 0-11
-                System.out.print("Ingrese el día: ");
-                int dia = scanner.nextInt();
-                setFechaPublicacion(year, mes, dia);
-                System.out.println("Fecha de publicación actualizada correctamente.");
+               
                 break;
                 
             case 2:
-                scanner.nextLine(); // Limpiar buffer
-                System.out.print("Ingrese la especificación técnica: ");
-                String especificacion = scanner.nextLine();
-                agregarEspecificacion(especificacion);
-                System.out.println("Especificación agregada correctamente.");
+            
                 break;
                 
             case 3:
-                System.out.println("\n=== ESPECIFICACIONES TÉCNICAS ===");
-                if (especificaciones.isEmpty()) {
-                    System.out.println("No hay especificaciones registradas.");
-                } else {
-                    listEspecificaciones();
-                }
+                
+                listEspecificaciones();
                 break;
                 
             case 4:
-                System.out.println("Saliendo del menú...");
+               
                 break;
                 
             default:
-                System.out.println("Opción inválida. Por favor seleccione una opción del 1 al 4.");
+                
                 break;
         }
     }
