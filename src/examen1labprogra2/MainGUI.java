@@ -17,4 +17,12 @@ public class MainGUI {
         // TODO code application logic here
     }
     
+    /*
+    - añadir item
+    - rentar
+    - ejecutar submenu(frames en game/movie?)
+    - imprimir todo
+    - 
+    */
+    
 }
