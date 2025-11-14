@@ -24,29 +24,55 @@ public class MainGUI extends JFrame {
         this.items = items;
 
         setTitle("Sistema de Renta");
-        setSize(400, 300);
+        setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Menú Principal", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        add(titleLabel, BorderLayout.NORTH);
+        JPanel headerPanel = new JPanel();
+        headerPanel.setBackground(new Color(41, 128, 185));
+        headerPanel.setPreferredSize(new Dimension(600, 100));
+        headerPanel.setLayout(new BorderLayout());
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(4, 1, 10, 10));
+        JLabel titleLabel = new JLabel("Sistema de Renta", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 32));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
+        headerPanel.add(titleLabel, BorderLayout.CENTER);
 
-        JButton addItemBtn = new JButton("Agregar Item");
-        JButton rentItemBtn = new JButton("Rentar");
-        JButton subMenuBtn = new JButton("Ejecutar Submenu"); // Botón a implementar
-        JButton printAllBtn = new JButton("Imprimir Todo");
+        JLabel subtitleLabel = new JLabel("Gestión de Películas y Juegos", SwingConstants.CENTER);
+        subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        subtitleLabel.setForeground(new Color(236, 240, 241));
+        headerPanel.add(subtitleLabel, BorderLayout.SOUTH);
 
-        buttonPanel.add(addItemBtn);
-        buttonPanel.add(rentItemBtn);
-        buttonPanel.add(subMenuBtn);
-        buttonPanel.add(printAllBtn);
+        add(headerPanel, BorderLayout.NORTH);
 
-        add(buttonPanel, BorderLayout.CENTER);
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(new Color(236, 240, 241));
+        mainPanel.setLayout(new GridBagLayout());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
+        gbc.weightx = 1.0;
+
+        JButton addItemBtn = createStyledButton(" Agregar Item", new Color(46, 204, 113));
+        JButton rentItemBtn = createStyledButton(" Rentar", new Color(52, 152, 219));
+        JButton subMenuBtn = createStyledButton("️ Ejecutar Submenu", new Color(155, 89, 182));
+        JButton printAllBtn = createStyledButton(" Imprimir Todo", new Color(241, 196, 15));
+
+        mainPanel.add(addItemBtn, gbc);
+        gbc.gridy++;
+        mainPanel.add(rentItemBtn, gbc);
+        gbc.gridy++;
+        mainPanel.add(subMenuBtn, gbc);
+        gbc.gridy++;
+        mainPanel.add(printAllBtn, gbc);
+
+        add(mainPanel, BorderLayout.CENTER);
 
         
         addItemBtn.addActionListener(e -> {
@@ -119,6 +145,29 @@ public class MainGUI extends JFrame {
             // El ítem fue encontrado, pero no tiene un submenú implementado
             JOptionPane.showMessageDialog(this, "El ítem '" + itemSeleccionado.getNombre() + "' no tiene un submenú disponible.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+    }
+
+    private JButton createStyledButton(String text, Color backgroundColor) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+        button.setPreferredSize(new Dimension(400, 50));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(backgroundColor.darker());
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(backgroundColor);
+            }
+        });
+        
+        return button;
     }
 
     public ArrayList<RentItem> getItems() {
