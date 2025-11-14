@@ -35,16 +35,32 @@ public class AddFrame extends JFrame {
         this.mainGUI = mainGUI;
         
         setTitle("Agregar Item");
-        setSize(500, 500);
+        setSize(650, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        JPanel tipoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel headerPanel = new JPanel();
+        headerPanel.setBackground(new Color(46, 204, 113));
+        headerPanel.setPreferredSize(new Dimension(650, 80));
+        headerPanel.setLayout(new BorderLayout());
+
+        JLabel titleLabel = new JLabel("Agregar Nuevo Item", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(15, 0, 5, 0));
+        headerPanel.add(titleLabel, BorderLayout.CENTER);
+
+        JPanel tipoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        tipoPanel.setBackground(new Color(46, 204, 113));
         tipoPanel.add(new JLabel("Tipo:"));
         tipoComboBox = new JComboBox<>(new String[]{"Movie", "Game"});
+        tipoComboBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        tipoComboBox.setPreferredSize(new Dimension(150, 30));
         tipoPanel.add(tipoComboBox);
-        add(tipoPanel, BorderLayout.NORTH);
+        headerPanel.add(tipoPanel, BorderLayout.SOUTH);
+        
+        add(headerPanel, BorderLayout.NORTH);
 
         JPanel cardPanel = new JPanel(new CardLayout());
 
@@ -181,14 +197,18 @@ public class AddFrame extends JFrame {
         String precioStr = precioField.getText().trim();
 
         if (codigo.isEmpty() || nombre.isEmpty() || precioStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            String mensaje = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                           + "<p style='color: #E74C3C;'>Por favor complete todos los campos.</p>"
+                           + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         if (codigoExiste(codigo)) {
-            JOptionPane.showMessageDialog(this, "El codigo ya existe. Por favor use otro codigo.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            String mensaje = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                           + "<p style='color: #E74C3C;'>El codigo ya existe. Por favor use otro codigo.</p>"
+                           + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -197,19 +217,25 @@ public class AddFrame extends JFrame {
         try {
             precio = Double.parseDouble(precioStr);
             if (precio < 0) {
-                JOptionPane.showMessageDialog(this, "El precio debe ser un numero positivo.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                String mensaje = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                               + "<p style='color: #E74C3C;'>El precio debe ser un numero positivo.</p>"
+                               + "</body></html>";
+                JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Por favor ingrese un precio valido.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            String mensaje = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                           + "<p style='color: #E74C3C;'>Por favor ingrese un precio valido.</p>"
+                           + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         if (imagenSeleccionadaMovie == null) {
-            JOptionPane.showMessageDialog(this, "Por favor cargue una imagen.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            String mensaje = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                           + "<p style='color: #E74C3C;'>Por favor cargue una imagen.</p>"
+                           + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -229,8 +255,10 @@ public class AddFrame extends JFrame {
      
         items.add(movie);
         
-        JOptionPane.showMessageDialog(this, "Pelicula agregada exitosamente.",
-                "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        String mensajeExito = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                            + "<p style='color: #27AE60;'>Pelicula agregada exitosamente.</p>"
+                            + "</body></html>";
+        JOptionPane.showMessageDialog(this, mensajeExito, "Exito", JOptionPane.INFORMATION_MESSAGE);
         
         
         limpiarCamposMovie();
@@ -245,15 +273,19 @@ public class AddFrame extends JFrame {
         String precioStr = precioFieldG.getText().trim();
 
         if (codigo.isEmpty() || nombre.isEmpty() || precioStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            String mensaje = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                           + "<p style='color: #E74C3C;'>Por favor complete todos los campos.</p>"
+                           + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         
         if (codigoExiste(codigo)) {
-            JOptionPane.showMessageDialog(this, "El codigo ya existe. Por favor use otro codigo.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            String mensaje = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                           + "<p style='color: #E74C3C;'>El codigo ya existe. Por favor use otro codigo.</p>"
+                           + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -262,20 +294,26 @@ public class AddFrame extends JFrame {
         try {
             precio = Double.parseDouble(precioStr);
             if (precio < 0) {
-                JOptionPane.showMessageDialog(this, "El precio debe ser un numero positivo.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                String mensaje = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                               + "<p style='color: #E74C3C;'>El precio debe ser un numero positivo.</p>"
+                               + "</body></html>";
+                JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Por favor ingrese un precio valido.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            String mensaje = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                           + "<p style='color: #E74C3C;'>Por favor ingrese un precio valido.</p>"
+                           + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
       
         if (imagenSeleccionadaGame == null) {
-            JOptionPane.showMessageDialog(this, "Por favor cargue una imagen.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            String mensaje = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                           + "<p style='color: #E74C3C;'>Por favor cargue una imagen.</p>"
+                           + "</body></html>";
+            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -295,8 +333,10 @@ public class AddFrame extends JFrame {
     
         items.add(game);
         
-        JOptionPane.showMessageDialog(this, "Videojuego agregado exitosamente.",
-                "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        String mensajeExito = "<html><body style='width: 250px; padding: 10px; font-family: Segoe UI;'>"
+                            + "<p style='color: #27AE60;'>Videojuego agregado exitosamente.</p>"
+                            + "</body></html>";
+        JOptionPane.showMessageDialog(this, mensajeExito, "Exito", JOptionPane.INFORMATION_MESSAGE);
         
        
         limpiarCamposGame(codigoFieldG, nombreFieldG, precioFieldG, cantidadSpinnerG,
