@@ -17,7 +17,11 @@ public class MainGUI extends JFrame {
     private ArrayList<RentItem> items;
 
     public MainGUI() {
-        items = new ArrayList<>();
+        this(new ArrayList<>());
+    }
+    
+    public MainGUI(ArrayList<RentItem> items) {
+        this.items = items;
 
         setTitle("Sistema de Renta");
         setSize(400, 300);
@@ -46,9 +50,9 @@ public class MainGUI extends JFrame {
 
         
         addItemBtn.addActionListener(e -> {
-            AddFrame frame = new AddFrame();
+            AddFrame frame = new AddFrame(items, this);
             frame.setVisible(true);
-            this.dispose();
+            this.setVisible(false);
         });
 
         rentItemBtn.addActionListener(e -> {
@@ -66,6 +70,10 @@ public class MainGUI extends JFrame {
             frame.setVisible(true);
             this.dispose();
         });
+    }
+    
+    public ArrayList<RentItem> getItems() {
+        return items;
     }
 
     public static void main(String[] args) {

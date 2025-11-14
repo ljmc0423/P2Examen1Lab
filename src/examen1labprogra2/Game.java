@@ -60,20 +60,20 @@ public class Game extends RentItem implements MenuActions {
         int year = fechaPublicacion.get(Calendar.YEAR);
         int mes = fechaPublicacion.get(Calendar.MONTH) + 1;
         int dia = fechaPublicacion.get(Calendar.DAY_OF_MONTH);
-        return super.toString() + "| Fecha Publicación: " + dia + "/" + mes + "/" + year + " – PS3 Game";
+        return super.toString() + "| Fecha Publicacion: " + dia + "/" + mes + "/" + year + " – PS3 Game";
     }
     
-    @Override
+    
     public double pagoRenta(int dias) {
         return PRECIO_RENTA_FIJO * dias;
     }
     
-    @Override
+  
     public void submenu() {
         
     }
     
-    @Override
+  
     public void ejecutarOpcion(int opcion) {
         
         switch (opcion) {
