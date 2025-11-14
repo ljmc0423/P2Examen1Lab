@@ -8,7 +8,7 @@ package examen1labprogra2;
  *
  * @author ljmc2
  */
-interface MenuActions {
+public interface MenuActions {
     void submenu();
     void ejecutarOpcion(int opcion);
 }
